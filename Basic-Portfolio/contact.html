@@ -13,19 +13,25 @@
 </head>
 
 <body>
-	<div class="main">
+	<div class="main smallfont">
 		<h2>About Me</h2>
 		<div class="line-break-bold"></div>
 		<br>
 
-		<div class="image">
-		<IMG SRC="assets/images/mbond1.jpg"/>
-			<div class="flavor-text">I guess a one-liner could go here?</div>
+		<form action="mailto:mothwentbad@gmail.com" method="post" enctype="text/plain">
+			Name:<br>
+			<input type="text" name="name" class="name"><br><br>
+			E-mail address:<br>
+			<input type="text" name="mail" class="name"><br><br>
+			Comment:<br>
+			<textarea type="text" name="comment" class="message"></textarea><br><br>
+			<input type="submit" value="Send">
+			<input type="reset" value="Reset">
+			Or <a href= "mailto:mothwentbad@gmail.com" class="link">email mothwentbad@gmail.com</a> the old-fashioned way.
+		</form>
 
-		</div>
-		<p>Ceci n'est pas une contact.</p>
-		<br>
-		<p>Sorry!</p>
+</body>
+</html>
 	</div>
 
 	<div class="connect">
