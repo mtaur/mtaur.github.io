@@ -5,37 +5,64 @@
 }
 
 .letterButton {
+	font-family: 'Shadows Into Light', cursive;
+	font-size: 60px;
+	text-align: center;
 	padding: 10px;
 }
 
 #strike-0 {
+	font-family: 'Shadows Into Light', cursive;
+	font-size: 60px;
+	text-align: center;
 	background-color: #d3fcff;
 }
 
 #strike-1 {
+	font-family: 'Shadows Into Light', cursive;
+	font-size: 60px;
+	text-align: center;
 	background-color: #a4c8f2;
 }
 
 #strike-2 {
+	font-family: 'Shadows Into Light', cursive;
+	font-size: 60px;
+	text-align: center;
 	background-color: #50336d;
 }
 
 #strike-3 {
+	font-family: 'Shadows Into Light', cursive;
+	font-size: 60px;
+	text-align: center;
 	background-color: #540f49;
 }
 
 #strike-4 {
+	font-family: 'Shadows Into Light', cursive;
+	font-size: 60px;
+	text-align: center;
 	background-color: #872a0c;
 }
 
 #strike-5 {
+	font-family: 'Shadows Into Light', cursive;
+	font-size: 60px;
+	text-align: center;
 	background-color: #ba1c07;
 }
 
 #strike-6 {
+	font-family: 'Shadows Into Light', cursive;
+	font-size: 60px;
+	text-align: center;
 	background-color: #383737;
 }
 
 #win {
+	font-family: 'Shadows Into Light', cursive;
+	font-size: 60px;
+	text-align: center;
 	background-color: #fff7c1;
 }
