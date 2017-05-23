@@ -29,8 +29,9 @@ var trackNum = 1;
 
 var currentTrack = 'clip1';
 var music = document.getElementById("music");
-music.src = makeTrackURL(currentTrack);
-music.play();
+currentTrack = 'intro';
+// music.src = makeTrackURL(currentTrack);
+ music.play(); //finish intro first
 
 music.addEventListener('ended', endOfTrack);
 
@@ -195,7 +196,7 @@ function endOfTrack()
 	{
 		if(strikes >= trackNum && trackNum < 6)
 			{	
-				var introDone = ((currentTrack === 'transitionToClip3') || (currentTrack === 'transitionToClip4'));
+				var introDone = ((currentTrack === 'intro') || (currentTrack === 'transitionToClip3') || (currentTrack === 'transitionToClip4'));
 				var needIntro = false;
 				if (trackNum === 2 || trackNum === 3)
 					{
@@ -208,6 +209,10 @@ function endOfTrack()
 					{
 						trackNum += 1;
 					}
+//				else if (trackNum === 0)
+//					{
+//						currentTrack = 'intro';
+//					}
 				else if (trackNum === 2)
 					{
 						currentTrack = 'transitionToClip3';
