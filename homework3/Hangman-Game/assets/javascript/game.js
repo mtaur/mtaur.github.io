@@ -153,6 +153,7 @@ function checkPuzzle()
 				music.play();
 				console.log('You won!');
 				music.removeEventListener('ended',endOfTrack);
+				document.body.id = ('win');
 			}
 	}
 
