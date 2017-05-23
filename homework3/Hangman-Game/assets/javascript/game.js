@@ -29,6 +29,7 @@ var trackNum = 1;
 
 var currentTrack = 'clip1';
 var music = document.getElementById("music");
+music.src = makeTrackURL(currentTrack);
 music.play();
 
 music.addEventListener('ended', endOfTrack);
