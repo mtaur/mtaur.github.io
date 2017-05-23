@@ -174,7 +174,9 @@ function checkSound()
 //        audio.load(); //call this to just preload the audio without playing
 //        audio.play(); //call this to play the song right away
 		console.log('That\'s ' + strikes + ' wrong so far...');
+		document.body.id = ('strike-' + strikes);
 			}
+
 		if (strikes === 6)
 			{
 				currentTrack='failure';
