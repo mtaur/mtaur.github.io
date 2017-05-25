@@ -83,6 +83,8 @@
 	font-size: 60px;
 	text-align: center;
 	min-width:8%;
+	max-height:20%;
+	background-color: #d7ebf2;
 }
 
 #answer {
