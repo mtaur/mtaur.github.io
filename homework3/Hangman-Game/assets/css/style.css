@@ -88,3 +88,11 @@
 #answer {
 	background-color: white;
 }
+
+#puzzle, #guess {
+	display:inline-block;
+	text-align:center;
+	background-color: white;
+	margin: auto 10px auto 10px;
+	width:50%;
+}

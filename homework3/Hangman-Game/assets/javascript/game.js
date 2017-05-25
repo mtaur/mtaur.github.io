@@ -108,15 +108,19 @@ function writePuzzle()
 writePuzzle();
 
 
+var keyboardHTML = ''; 
+
 // Deploy one button to the virtual keyboard
 	// <button onclick="guessLetter("Q")"><div id="letterButton"></button>  (etc...)
 function makeButton(letter) 
 	{
 		console.log('make ' + letter);
-		document.write('\<' + 'button id=\"letterButton\" onclick=\"guessLetter(\'' + letter + '\')\"\>' + letter + '\<' + '\/' + 'button' + '\>' );
+//		document.write('\<' + 'button id=\"letterButton\" onclick=\"guessLetter(\'' + letter + '\')\"\>' + letter + '\<' + '\/' + 'button' + '\>' );
+//		document.getElementById("keyboard").innerHTML = '\<' + 'button id=\"letterButton\" onclick=\"guessLetter(\'' + letter + '\')\"\>' + letter + '\<' + '\/' + 'button' + '\>' ;
 	}
 
 
+//   '\<' + 'button id=\"letterButton\" onclick=\"guessLetter(\'' + letter + '\')\"\>' + letter + '\<' + '\/' + 'button' + '\>' 
 
 
 //deploy three rows of keyboard buttons
@@ -126,14 +130,23 @@ for (i=0; i<3; i++)
 	{
 		for(j=0; j<alphabet[i].length; j++)
 		{
-			makeButton(alphabet[i][j]);
+			var letter = alphabet[i][j];
+//			makeButton(alphabet[i][j]);
+			console.log('make ' + letter);
+			keyboardHTML += '\<' + 'button id=\"letterButton\" onclick=\"guessLetter(\'' + letter + '\')\"\>' + letter + '\<' + '\/' + 'button' + '\>';
 		}
-				document.write('\<br\>');
+				keyboardHTML += '<br>';
+//				document.write('\<br\>');
 	}
 }
 
+			keyboardHTML += '\<' + 'button id=\"letterButton\" onclick=\"reset()\"\>Reset game\<' + '\/' + 'button' + '\>'  ;
 		console.log('make reset button.');
-		document.write('\<' + 'button id=\"letterButton\" onclick=\"reset()\"\>Reset game\<' + '\/' + 'button' + '\>' );
+//		document.write('\<' + 'button id=\"letterButton\" onclick=\"reset()\"\>Reset game\<' + '\/' + 'button' + '\>' );
+
+	document.getElementById("keyboard").innerHTML = keyboardHTML;
+
+
 
 
 function guessLetter(letter)
