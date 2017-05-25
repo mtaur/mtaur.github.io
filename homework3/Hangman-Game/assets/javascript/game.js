@@ -35,10 +35,8 @@ var trackNum = 0;
 
 var currentTrack = 'intro';
 var music = document.getElementById("music");
-currentTrack = 'intro';
-// music.src = makeTrackURL(currentTrack);
- music.play(); //finish intro first
-
+music.src = makeTrackURL(currentTrack);
+music.play(); //finish intro first
 music.addEventListener('ended', endOfTrack);
 
 
