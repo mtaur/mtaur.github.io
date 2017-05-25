@@ -292,5 +292,5 @@ function endOfTrack()
 
 	function makeTrackURL(track)
 	{
-		return 'assets/sound/' + track + '.wav';
+		return 'assets/sound/' + track + '.mp3';
 	}
