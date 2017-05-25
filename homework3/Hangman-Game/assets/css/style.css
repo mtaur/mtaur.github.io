@@ -78,7 +78,7 @@
 }
 
 
-#letterButton {
+.letterButton {
 	font-family: 'Shadows Into Light', cursive;
 	font-size: 60px;
 	text-align: center;
@@ -97,4 +97,13 @@
 	background-color: white;
 	margin: auto 10px auto 10px;
 	width:50%;
+}
+
+#keyPressed {
+	font-family: 'Shadows Into Light', cursive;
+	font-size: 60px;
+	text-align: center;
+	min-width:8%;
+	max-height:20%;
+	background-color: #444444;
 }

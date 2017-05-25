@@ -85,7 +85,8 @@ function reset()
 		document.getElementById("guess").innerHTML = 'Guesses so far: ';
 		writePuzzle();
 
-		//Don't need to deploy keyboard again
+		// Will un-darken letters
+		keyboardDeploy();
 
 	}
 
@@ -108,7 +109,6 @@ function writePuzzle()
 writePuzzle();
 
 
-var keyboardHTML = ''; 
 
 // Deploy one button to the virtual keyboard
 	// <button onclick="guessLetter("Q")"><div id="letterButton"></button>  (etc...)
@@ -122,31 +122,39 @@ function makeButton(letter)
 
 //   '\<' + 'button id=\"letterButton\" onclick=\"guessLetter(\'' + letter + '\')\"\>' + letter + '\<' + '\/' + 'button' + '\>' 
 
-
-//deploy three rows of keyboard buttons
-for (i=0; i<3; i++)
-{
-	for (i=0; i<3; i++)
+function keyboardDeploy()
 	{
-		for(j=0; j<alphabet[i].length; j++)
+
+
+	var keyboardHTML = ''; 
+
+	//deploy three rows of keyboard buttons
+		for (i=0; i<3; i++)
 		{
-			var letter = alphabet[i][j];
-//			makeButton(alphabet[i][j]);
-			console.log('make ' + letter);
-			keyboardHTML += '\<' + 'button id=\"letterButton\" onclick=\"guessLetter(\'' + letter + '\')\"\>' + letter + '\<' + '\/' + 'button' + '\>';
+			for (i=0; i<3; i++)
+			{
+				for(j=0; j<alphabet[i].length; j++)
+				{
+					var letter = alphabet[i][j];
+		//			makeButton(alphabet[i][j]);
+					console.log('make ' + letter);
+					keyboardHTML += '\<' + 'button class=\"letterButton\" id=\"letter'+ letter + '\" onclick=\"guessLetter(\'' + letter + '\')\"\>' + letter + '\<' + '\/' + 'button' + '\>';
+				}
+						keyboardHTML += '<br>';
+		//				document.write('\<br\>');
+			}
 		}
-				keyboardHTML += '<br>';
-//				document.write('\<br\>');
+
+			keyboardHTML += '\<' + 'button class=\"letterButton\" onclick=\"reset()\"\>Reset game\<' + '\/' + 'button' + '\>'  ;
+			console.log('make reset button.');
+
+		//		document.write('\<' + 'button id=\"letterButton\" onclick=\"reset()\"\>Reset game\<' + '\/' + 'button' + '\>' );
+
+			document.getElementById("keyboard").innerHTML = keyboardHTML;
 	}
-}
-
-			keyboardHTML += '\<' + 'button id=\"letterButton\" onclick=\"reset()\"\>Reset game\<' + '\/' + 'button' + '\>'  ;
-		console.log('make reset button.');
-//		document.write('\<' + 'button id=\"letterButton\" onclick=\"reset()\"\>Reset game\<' + '\/' + 'button' + '\>' );
-
-	document.getElementById("keyboard").innerHTML = keyboardHTML;
 
 
+keyboardDeploy();
 
 
 function guessLetter(letter)
@@ -158,6 +166,7 @@ function guessLetter(letter)
 		guessesArr.push(letter);
 		guesses += letter.toUpperCase() + ' ';
 	    document.getElementById("guess").innerHTML = 'Guesses so far: ' + guesses;
+	    document.getElementById("letter"+letter).id = 'keyPressed';
 
 	    // check for progress
 	    for(i=0; i<solution.length; i++)
