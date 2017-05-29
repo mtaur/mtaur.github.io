@@ -36,9 +36,15 @@ $(document).ready(
 barb.armorMult=.8;
 samuel.mresMult=.7;
 
-barb.takeDamage(40,'physical');
-samuel.takeDamage(40,'physical');
-shaman.takeDamage(80,'physical');
+//barb.takeDamage(40,'physical');
+//samuel.takeDamage(40,'physical');
+//shaman.takeDamage(80,'physical');
+
+		
+$('.char').click( function() {console.log(this,'was clicked')});
+$('.char').click( function() {console.log(divToChar(this),'was clicked')});
+$('.char').click( function() {divToChar(this).takeDamage(10,'phyiscal')});
+
 
 	}
 
@@ -58,6 +64,26 @@ function resetBattlefield()
 		CPURow[1] = ['','','',''];
 	}
 
+// Returns the character deployed to $('.char')
+function divToChar(div)
+	{
+		var all = allChar();
+		console.log(all);
+		console.log(all.length);
+		console.log('$(div)=',$(div)[0]);
+		for (var i=0; i<all.length; i++)
+			{
+				if($(div)[0] == all[i].divTag[0])
+					{	
+						console.log(all[i], 'was found!');
+						return all[i];
+					}
+				else
+					{	
+						console.log('Skipped',all[i].divTag[0]);
+					}
+			}
+	}
 
 function Character(portrait,side)
 	{
@@ -66,6 +92,7 @@ function Character(portrait,side)
 		this.name = portrait;
 		this.image = 'assets/images/' + portrait + '.png';
 		this.imageTag = $('<img>').attr('src',this.image).attr('alt',portrait).attr('class','img-fluid').attr('class','center-block');
+		this.divTag = '';
 
 		this.maxHP = 50;
 		this.HP = 50;
@@ -150,19 +177,27 @@ Character.prototype.deployTo = function(row,col)
 		////////
 		if (row==0 && this.side==0)
 			{
-				$('.player.char-f'+col).append(this.imageTag);
+//				$('.player.char-f'+col).append(this.imageTag);
+				this.divTag = $('.player.char-f'+col);
+				$('.player.char-f'+col).html(this.imageTag);
 			}
 		else if (row==1 && this.side==0)
 			{
-				$('.player.char-b'+col).append(this.imageTag);
+//				$('.player.char-b'+col).append(this.imageTag);
+				this.divTag = $('.player.char-b'+col);
+				$('.player.char-b'+col).html(this.imageTag);
 			}
 		else if (row==0 && this.side==1)
 			{
-				$('.cpu.char-f'+col).append(this.imageTag);
+//				$('.cpu.char-f'+col).append(this.imageTag);
+				this.divTag = $('.cpu.char-f'+col);
+				$('.cpu.char-f'+col).html(this.imageTag);
 			}
 		else if (row==1 && this.side==1)
 			{
-				$('.cpu.char-b'+col).append(this.imageTag);
+//				$('.cpu.char-b'+col).append(this.imageTag);
+				this.divTag = $('.cpu.char-b'+col);
+				$('.cpu.char-b'+col).html(this.imageTag);
 			}
 		this.updateStatbox();
 	}
@@ -179,7 +214,9 @@ Character.prototype.takeDamage = function(damage,type)
 				damageTaken *= this.mresMult;
 			}
 
-		if(damageTaken > this.HP)
+		damageTaken = Math.floor(damageTaken);
+
+		if(damageTaken >= this.HP)
 			{	
 				console.log(this,'died!!!!');
 				this.undeploy();
@@ -219,6 +256,9 @@ Character.prototype.undeploy = function()
 		console.log(str);
 //	Remove image from square
 		$(str).html('');
+
+// Remove divTag
+		this.divTag = '';
 
 // Remove statbox under character
 		if(this.side==0)
@@ -315,6 +355,12 @@ function allCPU()
 		return [].concat(CPUFront(),CPUBack());
 	}
 //////////////////
+
+
+function allChar()
+{
+	return allPlayers().concat(allCPU());
+}
 
 
 
