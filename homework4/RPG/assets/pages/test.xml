@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<span class='side panel'>
+<h2>Hello world!</h2>
+
+<div class="row info-main"><div class='col-xs-12'>This will be an info panel someday!</div></div>
+
+<div class="row actions">
+
+	<div class="col-xs-6 col-md-4"><div class="icon melee"></div>Melee</div>
+	<div class="col-xs-6 col-md-4"><div class="icon range"></div>Range</div>
+	<div class="col-xs-6 col-md-4"><div class="icon magic"></div>Magic</div>
+	<div class="col-xs-6 col-md-4"><div class="icon special"></div>Special</div>
+	<div class="col-xs-6 col-md-4"><div class="icon passive"></div>Passive</div>
+	<div class="col-xs-6 col-md-4"><div class="icon item"></div>Item</div>
+
+</div>
+
+<div class="row choices"><div class="col-xs-12"><ul><li>Magic missile</li><li>Fireball</li></ul></div></div>
+
+<div class="row tooltip">Expend your precious mana to do wizard stuff</div>
+
+<div class="row">
+
+	<div class="bottom">
+		<div class="col-xs-6 col-md-3">Turn</div>
+		<div class="col-xs-6 col-md-3">Gold</div>
+		<div class="col-xs-6 col-md-3">Stuff</div>
+		<div class="col-xs-6 col-md-3">Whatever</div>
+	</div>
+
+</div>
+</span>

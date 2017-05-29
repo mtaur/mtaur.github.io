@@ -1,0 +1,124 @@
+* {
+	box-sizing:border-box;
+}
+
+body 
+	{
+		padding: 0 3% 0 3%;
+	}
+
+#play-area {
+	text-align:center;
+}
+
+.side {
+	padding:0 3% 0 3%;
+}
+
+.char {
+/*	vertical-align: center;
+	position: relative;  */
+/*	box-sizing:content-box; */
+	display:flex;
+	align-items:center;
+	justify-content: center;
+	height:100px;
+	margin: 1px -14px 1px -14px;
+/*	width:100%; */
+	background-color: #777777;
+	border-width :4px;
+	border-style: solid;
+	border-color:#333333;
+	vertical-align:middle;
+/*	text-align:center;
+	box-sizing:border-box; */
+}
+
+
+.char img {
+	margin: auto;
+	max-height:100%;
+	max-width:100%;
+}/*	position: relative;
+	max-height:100%;
+	width:auto;
+	position:absolute;
+	max-height:100%;
+	max-width:100%;
+	width:auto;
+	height:auto;
+	margin:auto;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	text-align:center;
+	box-sizing:border-box; 
+} */
+
+
+.bottom {
+	position:fixed;
+	bottom:0;
+	text-align:center;
+	margin-right:2%;
+	padding:1%;
+}
+
+.width1 {
+	max-width: 33%;
+}
+
+#info {
+	text-align:center;
+	height:100%;
+	padding:0 10px 0 10px;
+}
+
+.info-main {
+	text-align:center;
+}
+
+
+
+.icon {
+	padding:20px;
+	background-repeat: no-repeat;
+}
+
+.melee {
+	background: url('../images/sword.png');
+	background-repeat: no-repeat;
+}
+
+.range {
+	background: url('../images/arrow.png');
+	background-repeat: no-repeat;
+}
+
+.magic {
+	background: url('../images/magic.png');
+	background-repeat: no-repeat;
+}
+
+.special {
+	background: url('../images/special.png');
+	background-repeat: no-repeat;
+}
+
+.item {
+	background: url('../images/potion.png');
+	background-repeat: no-repeat;
+}
+
+.passive {
+	background: url('../images/shield.png');
+	background-repeat: no-repeat;
+}
+
+
+
+
+.scl4-3 {
+	width: 133.33%;
+}
