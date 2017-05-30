@@ -3,8 +3,25 @@ $(document).ready(
 	function()
 
 	{
+
+
+
+startBattle();
+
+	}
+
+);
+/////////
+//   End of $(document).ready code block
+/////////
+/////////
+
+
+function startBattle()
+
+	{
 		$('#info').load('assets/pages/test.xml');
-		console.log('testing');
+//		console.log('testing');
 
 
 		barb = new Character('amazon',0);
@@ -20,40 +37,230 @@ $(document).ready(
 		merlinda.deployTo(1,2);
 
 		laizon = new Character('necro',0);
-		laizon.deployTo(1,1);
+		laizon.deployTo(1,3);
 
-		grobble = new Character('fallen',1);
-		grobble.deployTo(0,2);
+		stabby = new Character('assassin',0);
+		stabby.deployTo(0,3);
 
-		shaman = new Character('shaman',1);
-		shaman.deployTo(1,2);
+		rawr = new Character('druid',0);
+		rawr.deployTo(1,1);
 
-		$.each(barb.allowedTargets('ranged'), function(index,value) {console.log('Barb can ranged-attack ' + value.image)});
-		$.each(barb.allowedTargets('melee'), function(index,value) {console.log('Barb can melee-attack ' + value.image)});
-		$.each(shaman.allowedTargets('ranged'), function(index,value) {console.log('Shaman can ranged-attack ' + value.image)});
-		$.each(grobble.allowedTargets('melee'), function(index,value) {console.log('Grobble can melee-attack ' + value.image)});
 
-barb.armorMult=.8;
-samuel.mresMult=.7;
+		grobble0 = new Character('fallen',1);
+		grobble0.maxHP = 45;
+		grobble0.HP = 45;
+		grobble0.deployTo(0,0);
+		grobble0.skillChoice = grobble0.stabObject = new Melee(grobble0);
 
-//barb.takeDamage(40,'physical');
-//samuel.takeDamage(40,'physical');
-//shaman.takeDamage(80,'physical');
+		grobble1 = new Character('fallen',1);
+		grobble1.maxHP = 45;
+		grobble1.HP = 45;
+		grobble1.deployTo(0,1);
+		grobble1.skillChoice = grobble1.stabObject = new Melee(grobble1);
 
-		
-$('.char').click( function() {console.log(this,'was clicked')});
-$('.char').click( function() {console.log(divToChar(this),'was clicked')});
-$('.char').click( function() {divToChar(this).takeDamage(10,'phyiscal')});
+		grobble2 = new Character('fallen',1);
+		grobble2.maxHP = 45;
+		grobble2.HP = 45;
+		grobble2.deployTo(0,2);
+		grobble2.skillChoice = grobble2.stabObject = new Melee(grobble2);
 
+		grobble3 = new Character('fallen',1);
+		grobble3.maxHP = 45;
+		grobble3.HP = 45;
+		grobble3.deployTo(0,3);
+		grobble3.skillChoice = grobble3.stabObject = new Melee(grobble3);
+
+		shaman0 = new Character('shaman',1);
+		shaman0.damageRanged = 45;
+		shaman0.deployTo(1,0);
+		shaman0.skillChoice = shaman0.mmObject = new MagicShoot(shaman0);
+
+		shaman1 = new Character('shaman',1);
+		shaman1.damageRanged = 45;
+		shaman1.deployTo(1,1);
+		shaman1.skillChoice = shaman1.mmObject = new MagicShoot(shaman1);
+
+		shaman2 = new Character('shaman',1);
+		shaman2.damageRanged = 45;
+		shaman2.deployTo(1,2);
+		shaman2.skillChoice = shaman2.mmObject = new MagicShoot(shaman2);
+
+//		$.each(barb.allowedTargets('ranged'), function(index,value) {console.log('Barb can ranged-attack ' + value.image)});
+//		$.each(barb.allowedTargets('melee'), function(index,value) {console.log('Barb can melee-attack ' + value.image)});
+//		$.each(shaman.allowedTargets('ranged'), function(index,value) {console.log('Shaman can ranged-attack ' + value.image)});
+//		$.each(grobble.allowedTargets('melee'), function(index,value) {console.log('Grobble can melee-attack ' + value.image)});
+
+		// Not bad:
+		barb.armorMult=.8;
+		samuel.armorMult = .8;
+
+		// Look at this tank!  Wow!
+		pontificator.armorMult = .6;
+		pontificator.cover = 2;
+
+		// Coward, expect at cowering!  But he also spends life points to create expendable minions in the expansion.
+		laizon.cover = .5;
+		laizon.mresMult = .5;
+
+		// Homing attacks do less damage.  If only this iteration included mana points, maybe Merlinda would have more powerful options...
+		merlinda.damageRanged = 12;
+		merlinda.mresMult = .5;
+
+		// One day, he will get bonus damage based on minions
+		laizon.damageRanged = 8;
+
+			/////////
+			//  'this' keyword acts not as expected if the below is used.  Avoid for now (or rewrite 'shoot' to call shootObject.shoot from inside a function)?
+			//barb.shoot = barb.shootObject.execute;
+			////////
+
+		samuel.skillChoice = samuel.axeObj = new Melee(samuel);
+		stabby.skillChoice = stabby.axeObj = new Melee(stabby);
+		barb.skillChoice = barb.shootObject = new Shoot(barb);
+		rawr.skillChoice = rawr.shootObject = new Shoot(rawr);
+		pontificator.skillChoice = pontificator.swordObject = new Melee(pontificator);
+		merlinda.skillChoice = merlinda.mmObject = new MagicShoot(merlinda);
+		laizon.skillChoice = laizon.shootObject = new MagicShoot(laizon);
+
+		//barb.takeDamage(40,'physical');
+		//samuel.takeDamage(40,'physical');
+		//shaman.takeDamage(80,'physical');
+
+				
+		//$('.char').click( function() {console.log(this,'was clicked')});
+		//$('.char').click( function() {console.log(divToChar(this),'was clicked')});
+		//$('.char').click( function() {divToChar(this).takeDamage(10,'phyiscal')});
+
+		//$('.char').click( function() {barb.shootObject.execute(divToChar(this))} );
+
+		$('.char.player').click( function ()
+			{	
+				if(allPlayers().indexOf(divToChar(this))!=-1)
+					{hasFocus = divToChar(this); }
+
+			}
+		);
+
+		$('.char.cpu').click( function() 
+			{
+
+				if (hasFocus.movesLeft>0)
+					{
+						hasFocus.skillChoice.execute(divToChar(this));
+
+						if(allCPU().length==0)
+							{	
+								alert('You win!');
+							}
+						else if(cpuMovesLeft() > 0)
+							{
+								cpuGo();
+							}
+
+							// not an 'else'.  CPU might get to take the last turn.
+
+								//Logic check moved to cpuGo()
+						/*if(allPlayers().length==0)
+							{
+								alert('You lose!');
+							}   */
+
+						if(allMovesLeft()==0)
+							{	
+								newRound();
+							}
+					}
+			}
+		);
 
 	}
 
-);
+function cpuGo()
+	{
+		// cpuArr:  which cpu units still has moves?
+		var cpuArr = allCPU().filter( function(item) { return item.movesLeft>0; } );
+
+		// Pick one...
+		var cpuFocus = cpuArr[ Math.floor(Math.random()*cpuArr.length) ];
+		console.log(cpuFocus,'will go now.');
+
+		var targets = allPlayers();
+		console.log(targets);
+		targets = targets.filter(
+						function(target)
+							{
+								console.log('Can I target',target,":",cpuFocus.skillChoiceCanTarget(target));
+								return cpuFocus.skillChoiceCanTarget(target);
+							}
+					);
+		console.log('Possible targets of CPU attack: ',targets,'targets[0]=',targets[0]);
+		var target = targets[ Math.floor(targets.length*Math.random()) ];
+		console.log('CPU chose:', target);
+		cpuFocus.skillChoice.execute(target);
+
+		if(allPlayers().length==0)
+			{
+				alert('You lose!');	
+			}
+
+		else if(playerMovesLeft()==0 && cpuMovesLeft()>0)
+			{
+				cpuGo();
+			}
+		else if(playerMovesLeft()==0 && cpuMovesLeft()==0)
+			{	
+				newRound();
+			}
+	}
+
+
+function cpuMovesLeft()
+	
+	{
+		var cpuMovesLeft = 0;
+		allCPU().forEach( function(item) {cpuMovesLeft += item.movesLeft;} );
+		console.log(cpuMovesLeft,'moves left for computer.');
+		return cpuMovesLeft;
+	}
+
+
+function playerMovesLeft()
+	
+	{
+		var playerMovesLeft = 0;
+		allPlayers().forEach( function(item) {playerMovesLeft += item.movesLeft;} );
+		console.log(playerMovesLeft,'moves left for player.');
+		return playerMovesLeft;
+	}
+
+
+function allMovesLeft()
+	
+	{
+		var totalMovesLeft = 0;
+		(allPlayers().concat(allCPU())).forEach( function(item) {totalMovesLeft += item.movesLeft;} );
+		console.log(totalMovesLeft,'moves left globally.');
+		return totalMovesLeft;
+	}
+
+function newRound()
+
+	{
+		var all = allPlayers().concat(allCPU());
+		// Each character resets their turn counter.
+		all.forEach( function(item) {item.movesLeft = item.maxMoves;} );
+		all.forEach( function(item) {item.updateStatbox();} );
+
+		round++;
+	}
+
 
 		// Battlefield model.  Array of characters. Empty string represents null.
 		var playerRow = [];
 		var CPURow = [];
 		resetBattlefield();
+		var hasFocus = '';
+		var round = 0;
 
 
 function resetBattlefield()
@@ -68,19 +275,19 @@ function resetBattlefield()
 function divToChar(div)
 	{
 		var all = allChar();
-		console.log(all);
-		console.log(all.length);
-		console.log('$(div)=',$(div)[0]);
+//		console.log(all);
+//		console.log(all.length);
+//		console.log('$(div)=',$(div)[0]);
 		for (var i=0; i<all.length; i++)
 			{
 				if($(div)[0] == all[i].divTag[0])
 					{	
-						console.log(all[i], 'was found!');
+//						console.log(all[i], 'was found!');
 						return all[i];
 					}
 				else
 					{	
-						console.log('Skipped',all[i].divTag[0]);
+//						console.log('Skipped',all[i].divTag[0]);
 					}
 			}
 	}
@@ -94,9 +301,12 @@ function Character(portrait,side)
 		this.imageTag = $('<img>').attr('src',this.image).attr('alt',portrait).attr('class','img-fluid').attr('class','center-block');
 		this.divTag = '';
 
-		this.maxHP = 50;
-		this.HP = 50;
+		this.maxHP = 100;
+		this.HP = 100;
 		this.cover = 1;		// Higher values make character more likely to take ranged attacks in place of covered allies
+
+		this.damageMelee = 20;
+		this.damageRanged = 20;
 
 			// Default:  Character can move once per global turn, alternating player/CPU until neither side has turns left
 		this.maxMoves = 1;
@@ -109,6 +319,8 @@ function Character(portrait,side)
 		this.row = -1;
 		this.col = -1;
 
+		// Will be able to choose between multiple skills from the side panel eventually...
+		this.skillChoice ='';
 
 //		this.targetsOfType = targetsOfType;
 //		this.allowedTargets = allowedTargets;
@@ -128,6 +340,101 @@ function Character(portrait,side)
 		this.deployTo = deployTo;
 		this.updateStatbox = updateStatbox;
 		*/
+	}
+
+
+function SingleAttackSkill(owner,rangeType,damageType)
+	{
+		this.owner = owner;
+		this.rangeType = rangeType;
+		this.damageType = damageType;
+		this.damage = 0;
+//		this.targetRule = owner.allowedTargets;
+
+		if(rangeType == 'melee')
+			{
+				this.damage = owner.damageMelee;
+			}
+		else if(rangeType == 'ranged' || rangeType == 'homing')
+			{	
+				this.damage = owner.damageRanged;
+			}
+
+		this.canTarget = function(target)
+			{
+				if(owner.allowedTargets(this.rangeType).indexOf(target) != -1)
+					{
+						return true;
+					}
+				else { return false; }
+			};
+
+		this.retarget = function(target)
+			{
+				if (rangeType == 'ranged')
+					//  Ranged attacks have are redirected to a target or its covers with chance determined relative to the cover ratings of the target and its covers
+					{
+						var covers = [target].concat(target.coveredBy());
+//						console.log('Target of ranged attack is covered by',covers);
+						var coverTotal = 0;
+						for(var i=0; i<covers.length; i++)
+							{
+								coverTotal += covers[i].cover;
+							}
+//						console.log('Total of cover ratings is',coverTotal);
+						var rand = Math.random();
+						var coverSum = 0;
+						for(var j=0; j<covers.length; j++)
+							{	
+								coverSum += covers[j].cover;
+								if(rand*coverTotal<coverSum)
+									{
+										return covers[j];
+									}
+
+							}
+						console.log('retarget algorithm did not return as expected...');
+									{
+										return(target);
+									}	
+					}
+
+					// Homing and melee attacks do not suffer a redirect after a legal target is chosen.
+				else if (rangeType == 'melee' || rangeType == 'homing')
+					{	
+						return target;
+					}
+			};
+
+		this.execute = function(target)
+			{
+//				if(owner.allowedTargets(this.rangeType).indexOf(target) != -1)
+//				console.log('this is',this);
+				if (this.canTarget(target))
+					{	
+						console.log(owner,'performed attack of type',rangeType,damageType,'against',target);
+						this.retarget(target).takeDamage(this.damage,this.damageType);
+						owner.movesLeft -=1;
+						owner.updateStatbox();
+					}
+				else {console.log('Not a legal target...');  }
+			};
+
+	}
+
+function Shoot(owner)
+	{
+		SingleAttackSkill.call(this,owner,'ranged','physical');
+	}
+
+function MagicShoot(owner)
+	{
+		SingleAttackSkill.call(this,owner,'homing','magic');
+	}
+
+function Melee(owner)
+	{
+		SingleAttackSkill.call(this,owner,'melee','physical');
 	}
 
 // Filters out empty cells from array
@@ -253,7 +560,7 @@ Character.prototype.undeploy = function()
 				str += 'b'+this.col;
 			}
 
-		console.log(str);
+//		console.log(str);
 //	Remove image from square
 		$(str).html('');
 
@@ -271,9 +578,9 @@ Character.prototype.undeploy = function()
 				$('.statbox-c'+this.row+this.col).html(''); //('HP: ' + this.HP + '/' + this.maxHP);
 			}
 
-		console.log(this,'was removed');
-		console.log(allCPU().length, 'computer characters logged');
-		console.log(allPlayers().length, 'player characters logged');
+		console.log(this,'was removed from the field.');
+//		console.log(allCPU().length, 'computer characters logged');
+//		console.log(allPlayers().length, 'player characters logged');
 	}
 
 
@@ -532,7 +839,7 @@ Character.prototype.allowedTargets = function(attackType)
 				targets = targets.concat(frontRow);
 				return targets;
 			}
-		if(attackType == 'ranged')
+		if(attackType == 'ranged' || attackType == 'homing')
 			{	
 				return allEnemies(this.side);
 			}
@@ -547,4 +854,12 @@ function meleeAttack(target)
 	}
 
 
-
+Character.prototype.skillChoiceCanTarget = function(target)
+	{
+		console.log(this);
+		if(this.skillChoice.canTarget(target))
+			{
+				return true;
+			}
+		else return false;
+	}	
