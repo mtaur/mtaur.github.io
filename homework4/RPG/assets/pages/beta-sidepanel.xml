@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<span class='side-panel'>
+<h2>Hello world!</h2>
+
+<div class="row info-main"><div class='col-xs-12'>This is an info panel of sorts, but mostly a placeholder for the readme!</div></div>
+
+<div class="row actions">
+
+	<div class="col-xs-12"><h3>Oh no!  Our casters are out of mana!  Or maybe the developers are behind schedule?</h3><br/>
+		<ul>
+			<li><div class="icon melee"/><em>Paladins, Assassins, and Barbarians</em> have a melee attack.  They may the any unit in the front rank.  To attack the back rank, the target unit must not be <em>covered</em>.  A back-row unit is <em>covered</em> when it has an ally in front on the right or the left.</li>
+			<li><div class="icon range"/><em>Druids and Amazons</em> have a ranged attack.  They may attempt to attack any unit, but attacks against the back rank have a chance to be blocked by any unit <em>covering</em> that unit.  Drat!</li>
+			<li><div class="icon magic"/><em>Necromancers and Mages</em> have a <em>very weak homing attacks</em>.  These cannot be blocked by the front rank!</li>
+			<li><div class="icon special"/><em>You go first each round.</em>  When all units are out of turns, the round ends, and a new round begins.</li>
+			<li><div class="icon item"/><em>This should be pretty easy,</em> but <em>you will likely suffer casualties.</em>  Chance plays a role!</li>
+			<li><div class="icon passive"/><em>This ain't Playstation 7</em>.  What did you want, CSS effects and highlights on hover/focus for everything you could possibly want to know?  Be grateful that you don't have to type out commands manually and use your imagination for the graphics like it's 1984 or whenever.  Click your unit, then click your target to attack.  If your chosen unit doesn't have a turn left, you won't do anything, but you won't get punished either.  (At least I hope not.  That would be a bug.)</li>
+		</ul>
+		<h4>Infringe all the copyrights! Vanquish the evil! GO!!!</h4>
+	</div>
+
+</div>
+
+<!-- <div class="row choices"><div class="col-xs-12"><ul><li>Magic missile</li><li>Fireball</li></ul></div></div> 
+
+	LOLOL, no.  This is not implemented.
+-->
+
+<div class="row tooltip"></div>
+
+<div class="row">
+
+	<div class="bottom">
+		<div class="col-xs-6 col-md-3">Turn</div>
+		<div class="col-xs-6 col-md-3">Gold</div>
+		<div class="col-xs-6 col-md-3">Stuff</div>
+		<div class="col-xs-6 col-md-3">Whatever</div>
+	</div>
+
+</div>
+</span>

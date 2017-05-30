@@ -20,7 +20,8 @@ startBattle();
 function startBattle()
 
 	{
-		$('#info').load('assets/pages/test.xml');
+//		$('#info').load('assets/pages/test.xml');
+		$('#info').load('assets/pages/beta-sidepanel.xml');
 //		console.log('testing');
 
 

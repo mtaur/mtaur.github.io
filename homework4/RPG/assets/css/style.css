@@ -122,3 +122,24 @@ body
 .scl4-3 {
 	width: 133.33%;
 }
+
+
+
+em {
+  font-weight:bold;
+}
+
+li::before {
+  font-weight:bold;
+  content: '* ';
+}
+
+.actions {
+	position:absolute;
+	max-height:575px;
+	overflow: scroll;
+}
+
+.side-panel {
+	max-height:600px;
+}
