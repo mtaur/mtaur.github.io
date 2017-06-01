@@ -1,0 +1,62 @@
+body {
+	color: white;
+}
+
+h1 {
+	font-size:32px;
+}
+
+h3 {
+	font-size:24px;
+	text-decoration: underline;
+	margin-bottom:10px;
+}
+
+#charImage {
+	max-height:20%;
+	max-width:20%;
+	image-orientation:from-image;
+}
+
+.content {
+	vertical-align: center;
+	position: absolute;
+	vertical-align: middle;
+	text-align: center;
+
+	background-color:gray;
+
+	top:5%;
+	right:5%;
+	bottom:5%;
+	left:5%;
+
+	background-image:url("../images/background.jpg");
+
+}
+
+.inner-content {
+	position:absolute;
+	right:5%;
+	left:5%;
+	top: 10%;
+	bottom:10%;
+	text-align:center;
+}
+
+.container {
+	vertical-align: middle;
+	width:95%;
+	height:95%;
+	margin: 2.5%;
+	background-color:silver;
+}
+
+.not-so-large {
+	width: 60%;
+	margin: 5% 20% 5% 20%;
+}
+
+.div-inline {
+	display:inline-block;
+}

@@ -1,0 +1,17 @@
+<span>
+<meta charset="utf-8"/>		
+
+<div class="dropdown div-inline ans">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <span class="fact2-1 drop-button">Pick one...</span>
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li class='ans0 fact2-1'><a href='#' class='ans0 fact2-1 txt'>Frederick Goatington III, Esq.</a></li>
+    <li class='ans1 fact2-1'><a href='#' class='ans1 fact2-1 txt'>Freddie the Goat</a></li>
+    <li class='ans2 fact2-1'><a href='#' class='ans2 fact2-1 txt'>Sheepy</a></li>
+    <li class='ans3 fact2-1'><a href='#' class='ans3 fact2-1 txt'>Joe</a></li>
+  </ul>
+</div>
+
+</span>

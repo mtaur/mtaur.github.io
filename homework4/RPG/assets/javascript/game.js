@@ -4,9 +4,7 @@ $(document).ready(
 
 	{
 
-
-
-startBattle();
+	startBattle();
 
 	}
 

@@ -1,0 +1,27 @@
+<span>
+<meta charset="utf-8"/>		
+
+		<div class='inner-content'><h1>Question <span id='probNum'>(problem number)</span></h1>
+		<div>Correct: <span id='right'>0</span>   Incorrect: <span id='wrong'>0</span>   Complete pages bonus: <span id='pageRight'>0</span></div>
+		<div id='afterScore'>
+		<br/>
+			<div id='imageDiv'>
+				<img id='charImage'></img>
+			</div>
+			<h3>Tell me about this character:</h3>
+			<br/>
+			This is <span class='charName input'></span>.
+			<div><span class='charName repeat'></span><span class='factAbout1 before'></span><span class='factAbout1 input'></span><span class='factAbout1 after'></span></div>
+			<div><span class='charName repeat'></span><span class='factAbout2 prelude'></span><span class='factAbout2 input1'></span><span class='factAbout2 middle'></span><span class='factAbout2 input2'></span><span class='factAbout2 end'></span>
+			</div>
+
+			<div class="well well-lg not-so-large">
+				<div class="btn-group" role="group" aria-label="...">
+				  <button type="button" class="btn btn-lg btn-primary" id="confirm">Confirm answer</button>
+				</div>
+			</div>
+			<br/>
+		</div>
+		</div>
+
+</span>
