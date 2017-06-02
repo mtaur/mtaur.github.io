@@ -63,12 +63,31 @@ function Character(name,shortfact,longfact,image)
 		this.img = image;
 	}
 
+//questions about Goat Night characters.  Current question stored in 'char' object from 'characters' arry.
+var char = '';
 var characters = [];
 var page = 0;
 var right = 0;
 var wrong = 0;
 var pagesRight = 0;
 
+// Will probably be mutually exclusive, but will track separately just in case for extensibility.
+var isAnswerPage = false;
+var isQuestionPage = false;
+
+var answerPage = '';
+var questionPage = '';
+
+var tooSlow = 0;
+var timer = ''; // Countdown timer
+
+var secondsOnPage = 0;
+var secondCount = '';  // Countup timer
+
+var seconds = 30;  // Seconds until Freddie pokes you...
+
+/////////////////////////
+////Question data defined directly in js for now.  API could improve this...
 /////////////////////////
 var freddie = new Character('','','','Freddie');
 
@@ -408,20 +427,54 @@ characters.push(annette);
 //////////////////////
 
 characters = shuffle(characters);
-var char = characters[page];
+char = characters[page];
+
 
 function startQuiz()
 	{
 //		$('.inner-content').load('assets/pages/quizPage.xml').ready(formatPage);
 //		console.log('Start the quiz!!!');
-		$('.inner-content').load('assets/pages/quizPage.xml', formatPage);
+
+////////   This isn't Jeopardy.....
+		isAnswerPage = false;
+		isQuestionPage = true;
+/////////
+////////   This isn't Jeopardy.....
+//		isAnswerPage = true;
+//		isQuestionPage = false;
+/////////
+
+		answerPage = $('.inner-content').load('assets/pages/answerPage.xml', function() {console.log(answerPage)});
+		questionPage = $('.inner-content').load('assets/pages/quizPage.xml', formatPage);
 //		$('.inner-content').load('assets/pages/quizPage.xml', function()  {formatPage(); });
 		console.log('Start the quiz!!!');
 //		formatPage();
+		console.log(questionPage);
+
 	}
 
 function formatPage()
 	{
+		secondsOnPage = 0;
+		secondCount = setInterval(function() 
+			{
+				secondsOnPage++;
+				$('#seconds-on-page').text(secondsOnPage);
+			}
+				,1*1000);
+
+		timer = setInterval(function(){ alert('Freddie pokes to see if you\'re awake.  He thought about clicking the submit function...');}
+						,seconds*1000);
+
+//		timer = setTimeout(function()
+//				{
+//					alert('Freddie clicks the submit button...');
+//					nextPage();
+//				}
+//			,seconds*1000)
+
+
+
 //		$('.charName.input').load('assets/pages/dropdown.xml').ready( function() {$('li').click(pickName); });
 /*		$('.charName.input').load('assets/pages/dropdownName.xml').ready(
 			function() 	{
@@ -429,6 +482,8 @@ function formatPage()
 				}
 			); */
 		char = characters[page];
+
+		$('inner-content').html(questionPage);
 
 		$('.charName.input').load('assets/pages/dropdownName.xml',
 			function() 	{
@@ -463,6 +518,8 @@ function formatPage()
 		$('#right').text(right);
 		$('#wrong').text(wrong);
 		$('#pageRight').text(pagesRight);
+		$('#pageRightBonus').text(Math.ceil(pagesRight*Math.PI));
+		$('#pointTotal').text(Math.ceil(pagesRight*Math.PI)+right);
 
 //		$('.finalAnswer').click(nextPage);
 //		console.log($('#confirm'));
@@ -560,55 +617,87 @@ function nextPage()
 	{
 //		console.log('Right so far:'+right+'\nPages right so far:'+pagesRight);
 		var allRight = true;
-		if(char.name.chosen == char.name.answer)
-			{	
-				right++;
+
+			// Bonus points for getting an entire page correct
+		if(isQuestionPage == true)
+		{	
+			clearTimeout(secondCount);
+//			secondsOnPage
+			clearInterval(timer);  // <--- Freddie holds back, does not click the Submit button...
+
+			// clearTimeout(timer);  <--- Freddie clicks the submit button
+
+			if(char.name.chosen == char.name.answer)
+				{	
+					right++;
+				}
+			else 
+				{ 
+					allRight = false;
+					wrong++; 
+				}
+			if(char.shortfact.input.chosen == char.shortfact.input.answer)
+				{	
+					right++;
+				}
+			else 
+				{ 
+					allRight = false;
+					wrong++; 
+				}
+			if(char.longfact.input1.chosen == char.longfact.input1.answer)
+				{	
+					right++;
+				}
+			else 
+				{ 
+					allRight = false;
+					wrong++; 
+				}
+			if(char.longfact.input2.chosen == char.longfact.input2.answer)
+				{	
+					right++;
+				}
+			else
+				{ 
+					allRight = false;
+					wrong++; 
+				}
+			if(allRight==true)
+				{
+					pagesRight++;
+				}
+			else {
 			}
-		else 
-			{ 
-				allRight = false;
-				wrong++; 
-			}
-		if(char.shortfact.input.chosen == char.shortfact.input.answer)
-			{	
-				right++;
-			}
-		else 
-			{ 
-				allRight = false;
-				wrong++; 
-			}
-		if(char.longfact.input1.chosen == char.longfact.input1.answer)
-			{	
-				right++;
-			}
-		else 
-			{ 
-				allRight = false;
-				wrong++; 
-			}
-		if(char.longfact.input2.chosen == char.longfact.input2.answer)
-			{	
-				right++;
-			}
-		else
-			{ 
-				allRight = false;
-				wrong++; 
-			}
-		if(allRight==true)
-			{
-				pagesRight++;
-			}
-		else {
 		}
-		page++;
-		if(page<characters.length)
+
+
+		if(page<characters.length && isAnswerPage == true)
 			{
+
+				page++;
+				isAnswerPage = false;
+				isQuestionPage = true;
+
+				//purge answer page text formatting.  Tag classes are shared...
+				$('.charName.input').text(char.name.answer).removeClass('sol wrong');
+				$('.charName.repeat').text(char.name.answer).removeClass('sol wrong');
+				$('.factAbout1.input').text(char.shortfact.input.answer).removeClass('sol wrong');
+				$('.factAbout2.input1').text(char.longfact.input1.answer).removeClass('sol wrong');
+				$('.factAbout2.input2').text(char.longfact.input2.answer).removeClass('sol wrong');
+
+				// 'formatPage': formats the question page. Default naming from before there were answer pages
 				formatPage();
 			}
-		else
+		else if(isQuestionPage == true)
+			{
+				isAnswerPage = true;
+				isQuestionPage = false;
+				goToAnswerPage();
+			}
+		else if (page==characters.length && isAnswerPage == true)
 			{ 
+				isAnswerPage = isQuestionPage = false;
 				$('#right').text(right);
 				$('#wrong').text(wrong);
 				$('#pageRight').text(pagesRight);
@@ -619,4 +708,78 @@ function nextPage()
 function end()
 	{
 		$('#afterScore').html('<h1>The end!</h1>');
+	}
+
+
+function goToAnswerPage()
+	{
+
+//		char = characters[page];
+
+		$('inner-content').html(answerPage);
+		console.log('Answer page plz???');
+
+		$('.charName.input').text(char.name.answer).addClass('sol');
+		$('.charName.repeat').text(char.name.answer).addClass('sol');
+		if(char.name.chosen != char.name.answer)
+			{	
+				$('.charName.input').addClass('wrong');
+				$('.repeat').addClass('wrong');
+			}
+		else
+			{
+				// Leave it alone, reload from answerPage HTML block to clear earlier 'wrong' marking?
+			}
+
+		$('.factAbout1.input').text(char.shortfact.input.answer).addClass('sol');
+		if(char.shortfact.input.chosen != char.shortfact.input.answer)
+			{	
+				$('.factAbout1.input').addClass('wrong');
+			}
+		else
+			{
+				//
+			}
+
+		$('.factAbout2.input1').text(char.longfact.input1.answer).addClass('sol');
+		if(char.longfact.input1.chosen != char.longfact.input1.answer)
+			{	
+				$('.factAbout2.input1').addClass('wrong');
+			}
+		else
+			{
+				//		
+			}
+
+		$('.factAbout2.input2').text(char.longfact.input2.answer).addClass('sol');
+		if(char.longfact.input2.chosen != char.longfact.input2.answer)
+			{	
+				$('.factAbout2.input2').addClass('wrong');
+			}
+		else
+			{
+				// 	
+			}
+
+//		$('.factAbout1.input').load(char.shortfact.input.answer);
+//		$('.factAbout2.input1').text(character.longfact.input1.answer);
+//		$('.factAbout2.input2').load(character.longfact.input2.answer); 
+
+		// Probably needed because this was only applied to the question HTML block earlier?
+		$('#charImage').attr('src','assets/images/'+char.img+'.jpg');
+
+		$('.factAbout1.before').text(char.shortfact.before);
+		$('.factAbout1.after').text(char.shortfact.after);
+		$('.factAbout2.prelude').text(char.longfact.before);
+		$('.factAbout2.middle').text(char.longfact.middle);
+		$('.factAbout2.end').text(char.longfact.after);
+//		if(page==0)
+//			{$('#confirm').click(nextPage);}
+		$('#probNum').text(page+1);
+		$('#right').text(right);
+		$('#wrong').text(wrong);
+		$('#pageRight').text(pagesRight);
+		$('#pageRightBonus').text(Math.ceil(pagesRight*Math.PI));
+		$('#pointTotal').text(Math.ceil(pagesRight*Math.PI)+right);
+
 	}

@@ -60,3 +60,18 @@ h3 {
 .div-inline {
 	display:inline-block;
 }
+
+.sol {
+	font-weight: bold;
+	font-size:20px;
+	background: #2152b2;
+}
+
+.wrong {
+	background: #d61939;
+}
+
+#seconds-on-page {
+	font-size:30px;
+	top:3%;
+}

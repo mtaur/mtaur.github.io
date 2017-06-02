@@ -8,16 +8,16 @@
 			<div id='imageDiv'>
 				<img id='charImage'></img>
 			</div>
-			<h3>Tell me about this character:</h3>
+			<h3>Solution!</h3>
 			<br/>
-			This is <span class='charName input'></span>.
-			<div><span class='charName repeat'></span><span class='factAbout1 before'></span><span class='factAbout1 input'></span><span class='factAbout1 after'></span></div>
-			<div><span class='charName repeat'></span><span class='factAbout2 prelude'></span><span class='factAbout2 input1'></span><span class='factAbout2 middle'></span><span class='factAbout2 input2'></span><span class='factAbout2 end'></span>
+			This is <span class='charName input sol'></span>.
+			<div><span class='charName repeat'></span><span class='factAbout1 before'></span><span class='factAbout1 input sol'></span><span class='factAbout1 after'></span></div>
+			<div><span class='charName repeat'></span><span class='factAbout2 prelude'></span><span class='factAbout2 input1 sol'></span><span class='factAbout2 middle'></span><span class='factAbout2 input2 sol'></span><span class='factAbout2 end'></span>
 			</div>
 
 			<div class="well well-lg not-so-large">
 				<div class="btn-group" role="group" aria-label="...">
-				  <button type="button" class="btn btn-lg btn-primary" id="confirm">Confirm answer</button>
+				  <button type="button" class="btn btn-lg btn-primary" id="confirm">Continue</button>
 				</div>
 			</div>
 			<br/>

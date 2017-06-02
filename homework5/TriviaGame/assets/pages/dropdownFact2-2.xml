@@ -1,7 +1,7 @@
 <span>
 <meta charset="utf-8"/>		
 
-<div class="dropdown div-inline ans">
+<div class="dropdown div-inline ans dropup">
   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
     <span class="fact2-2 drop-button">Pick one...</span>
     <span class="caret"></span>
