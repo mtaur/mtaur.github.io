@@ -672,7 +672,7 @@ function nextPage()
 		}
 
 
-		if(page<characters.length && isAnswerPage == true)
+		if(page<characters.length-1 && isAnswerPage == true)
 			{
 
 				page++;
@@ -695,19 +695,23 @@ function nextPage()
 				isQuestionPage = false;
 				goToAnswerPage();
 			}
-		else if (page==characters.length && isAnswerPage == true)
+		else if (page==characters.length-1 && isAnswerPage == true)
 			{ 
 				isAnswerPage = isQuestionPage = false;
-				$('#right').text(right);
+/*				$('#right').text(right);
 				$('#wrong').text(wrong);
-				$('#pageRight').text(pagesRight);
+				$('#pageRight').text(pagesRight);  */
 				end(); 
 			}
 	}
 
 function end()
 	{
-		$('#afterScore').html('<h1>The end!</h1>');
+		$('#afterScore').attr('id','ending').html('The end!');
+		$('.content').addClass('endContent'); //css('background-image','url('+'\"../images/GoatNight.jpg\"'+');');
+		// Could pick something else if the score were really high, but I have to sleep eventually.
+//			CSS is wacky, too many divs added/removed... :(
+//		$('#charImage').attr('src','assets/images/GoatNight.jpg');
 	}
 
 

@@ -6,7 +6,7 @@
 		<div id='afterScore'>
 		<br/>
 			<div id='imageDiv'>
-				<img id='charImage'></img>
+				<img id='charImage' alt='Character to guess'></img>
 			</div>
 			<h3>Tell me about this character:</h3>
 			<br/>
