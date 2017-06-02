@@ -463,7 +463,7 @@ function formatPage()
 			}
 				,1*1000);
 
-		timer = setInterval(function(){ alert('Freddie pokes to see if you\'re awake.  He thought about clicking the submit function...');}
+		timer = setInterval(function(){ alert('Freddie pokes to see if you\'re awake.  He thought about clicking the submit button...');}
 						,seconds*1000);
 
 //		timer = setTimeout(function()
