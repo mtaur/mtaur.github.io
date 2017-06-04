@@ -49,7 +49,7 @@
     <!-- Movies will get dumped dere -->
     <div id="memes-view"></div>
 
-    <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script type="text/javascript">
       // Initial array of movies
       var memes = ['doge', 'keyboard cat', 'kermit tea', 'trogdor', 'all your base', 'minotaur', 'herbie hancock', 'JQuery Justin', 'css family guy'];
@@ -65,7 +65,7 @@
           console.log('$.param(meme):',meme.replace(' ','+'));
 //          console.log($.urlParam(meme));
 //          return ('http://api.giphy.com/v1/gifs/search?q=' + $.param(meme) + '&api_key=' + apiKey + '&limit=' + limit); //step + "&offset="+offset;
-          return ('http://api.giphy.com/v1/gifs/search?q=' + meme.replace(' ','+') + '&api_key=' + apiKey + '&limit=' + limit); //step + "&offset="+offset;
+          return ('https://api.giphy.com/v1/gifs/search?q=' + meme.replace(' ','+') + '&api_key=' + apiKey + '&limit=' + limit); //step + "&offset="+offset;
         }
 
       function displayMemeByName(meme)
