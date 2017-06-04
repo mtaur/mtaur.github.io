@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Meme-ifier deluxe!</title>
+  <style type="text/css">
+    button,
+    div,
+    form,
+    input {
+      margin: 10px;
+    }
+
+    #memes-view {
+      position: absolute;
+      display: inline-block;
+    }
+
+    .meme-result{
+      position: relative;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Click these buttons to display the top 10 gifs!</h1>
+
+    <!-- Rendered buttons will get dumped Here  -->
+    <div id="buttons-view"></div>
+
+    <form id="meme-form">
+      <label for="meme-input">Add a button for your favorite search term!  Exact duplicates will be ignored!</label>
+      <input type="text" id="meme-input"><br>
+
+      <!-- Button triggers new movie to be added -->
+      <input id="add-meme" type="submit" value="Add buttons to store your favorite Giphy searches">
+    </form>
+
+    <h2>Click on your gifs below to start or end animation!</h2>
+
+    <h3>The Giphy API makes this possible!  It's not the worst API out there!</h3>
+
+    <h4>But their search engine is kind of mediocre at best!</h4>
+
+    <!-- Movies will get dumped dere -->
+    <div id="memes-view"></div>
+
+    <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript">
+      // Initial array of movies
+      var memes = ['doge', 'keyboard cat', 'kermit tea', 'trogdor', 'all your base', 'minotaur', 'herbie hancock', 'JQuery Justin', 'css family guy'];
+      var apiKey = 'dc6zaTOxFJmzC';
+      var limit = 10;
+
+//      console.log(makeQuery('donut'));
+
+      function makeQuery(meme) 
+        { 
+          console.log('meme:',meme);
+//          console.log('$.param(meme):',$.param(meme));
+          console.log('$.param(meme):',meme.replace(' ','+'));
+//          console.log($.urlParam(meme));
+//          return ('http://api.giphy.com/v1/gifs/search?q=' + $.param(meme) + '&api_key=' + apiKey + '&limit=' + limit); //step + "&offset="+offset;
+          return ('http://api.giphy.com/v1/gifs/search?q=' + meme.replace(' ','+') + '&api_key=' + apiKey + '&limit=' + limit); //step + "&offset="+offset;
+        }
+
+      function displayMemeByName(meme)
+        {
+//          console.log('meme:',meme);
+//          console.log('$(this):',$(this));
+          console.log('$(this).attr(\'data-name\')',$(this).attr('data-name'));
+          displayMemes(makeQuery($(this).attr('data-name')));
+        }
+
+
+      // displayMovieInfo function re-renders the HTML to display the appropriate content
+      function displayMemes(memeURL) {
+
+        console.log('displayMemes('+memeURL+')');
+        var url = memeURL;
+
+//        var meme = $(this).attr("data-name");
+//        var queryURL = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=40e9cece";
+
+
+        // Creating an AJAX call for the specific movie button being clicked
+        $.ajax(url).done(function(response) {
+
+//          var queryURL = makeQuery(response);
+
+//          var images = response;
+
+//            console.log(imagesArray);
+            console.log('response object:',response);
+            console.log('response.data[0]:',response.data[0]);
+            $('#memes-view').html('');
+
+              for (var i=0;i<response.data.length; i++)
+                  {
+                  // Creating a div to hold the movie
+                  var memeDiv = $("<div class='meme-result'>");
+
+                  // Storing the rating data
+                  var rating = response.data[i].rating;
+
+                  console.log(rating);
+
+                  // Creating an element to have the rating displayed
+                  var pOne = $("<p>").text("Rating: " + rating);
+
+                  // Displaying the rating
+                  memeDiv.append(pOne);
+
+
+                  // Retrieving the URL for the image
+                  // Moving image
+
+                    //Default non-animated:
+                  var imgURL = response.data[i].images.fixed_height_still.url;
+
+                    //Default animated:
+      //            var imgURL = response.data[i].images.fixed_height.url;
+
+                  // Creating an element to hold the image
+                  var image = $("<img>").attr("src", imgURL).addClass('image');
+
+                  // 
+                  image.attr('data-still',response.data[i].images.fixed_height_still.url);
+                  image.attr('data-animate',response.data[i].images.fixed_height.url);
+                  //
+                  image.attr('data-state','still');  // Defaults to non-moving image
+                  //
+
+                  // Appending the image
+                  memeDiv.append(image);
+
+                  // Putting the entire movie above the previous movies
+                  $("#memes-view").append(memeDiv);
+                  }
+
+              $(".image").on("click", function() {
+                    // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+                    var state = $(this).attr("data-state");
+                    console.log('data state before:',$(this).attr('data-state'),'doge');
+                    // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+                    // Then, set the image's data-state to animate
+                    // Else set src to the data-still value
+        /*
+        Example pictures, need to be fetched from API dynamically...
+        data-still="http://media3.giphy.com/media/W6LbnBigDe4ZG/200_s.gif" data-animate="http://media3.giphy.com/media/W6LbnBigDe4ZG/200.gif" data-state="still" class="gif"
+        */
+
+                if (state === "still") {
+                  $(this).attr("src", $(this).attr("data-animate"));
+                  $(this).attr("data-state", "animate");
+                } 
+                else {
+                  $(this).attr("src", $(this).attr("data-still"));
+                  $(this).attr("data-state", "still");
+                }
+
+            
+               console.log('data state after:',$(this).attr('data-state'));
+             }
+
+
+
+            );
+
+
+        });
+
+
+
+////end of displayMemes function
+      }
+
+      // Function for displaying movie data
+      function renderButtons() {
+
+        // Deleting the movies prior to adding new movies
+        // (this is necessary otherwise you will have repeat buttons)
+        $("#buttons-view").empty();
+
+        // Looping through the array of movies
+        for (var i = 0; i < memes.length; i++) {
+
+          // Then dynamicaly generating buttons for each movie in the array
+          // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+          var a = $("<button>");
+          // Adding a class of movie to our button
+          a.addClass("meme");
+          // Adding a data-attribute
+          a.attr("data-name", memes[i]);
+          // Providing the initial button text
+          a.text(memes[i]);
+          // Adding the button to the buttons-view div
+          $("#buttons-view").append(a);
+        }
+      }
+
+      // This function handles events where a movie button is clicked
+      $("#add-meme").on("click", function(event) {
+        event.preventDefault();
+        // This line grabs the input from the textbox
+        var meme = $("#meme-input").val().trim();
+
+        console.log('New meme:',meme);
+        // Adding movie from the textbox to our array
+        if(memes.indexOf(meme)==-1)  
+            {memes.push(meme);}
+
+        // Calling renderButtons which handles the processing of our movie array
+        renderButtons();
+      });
+
+
+      // Adding a click event listener to all elements with a class of "meme"
+      $(document).on("click", ".meme", displayMemeByName);
+
+
+      // Calling the renderButtons function to display the intial buttons
+      renderButtons();
+
+
+            
+
+    </script>
+  </div>
+</body>
+
+</html>
