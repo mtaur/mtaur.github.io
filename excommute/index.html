@@ -138,6 +138,7 @@ function distMatrixCallback(response, status)
 
 			// Use stupid metric if the matrix callback failed...
 			setDistZScores(homes);
+			homeIconPicker(homes);
 			deployHomes(homes);
 			haveHomes = true;
 
@@ -150,11 +151,10 @@ function distMatrixCallback(response, status)
 //  THE BELOW DEPENDS ON THE STATISTICS FOR THE ENTIRE ARRAY, AND THEREFORE CANNOT BE
 //  COMPUTED INSIDE OF THE FOR LOOP
 setPriceZScores(homes);
-setDistZScores(homes);
+//setDistZScores(homes);
 
 
 // Depends on the z-scores...
-homeIconPicker(homes);
 
 var haveMap = false;
 var haveHomes = false;
@@ -349,7 +349,7 @@ function homeIconPicker(arr)
 					arr[i].icon = 'home-red.png';
 				}
 
-			else if(arr[i].priceZ+arr[i].distZ >1)
+			else if(arr[i].priceZ+arr[i].distZ > 1)
 				{	
 					arr[i].icon = 'home-yellow.png';
 				}
