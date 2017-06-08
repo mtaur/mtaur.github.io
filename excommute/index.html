@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Excommute prototype</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!--script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmW7fmoiV52ahfr4s2gmYKVPsv8hEHk0g&callback=prepGMaps"></script -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACHyy4EKCvJRIlk3KM17nVdZCmltZUTGw&callback=prepGMaps"></script>
+
+</head>
+<body>
+
+<script type="text/javascript">
+	
+// Google Maps API key: AIzaSyAmW7fmoiV52ahfr4s2gmYKVPsv8hEHk0g
+
+</script>
+
+<!-- W3 Schools example  -->
+
+<h1>My First Google Map</h1>
+
+<div id="googleMap" style="width:100%;height:400px;"></div>
+
+<div id="Home-info">
+	<h2>House info:</h2>
+		<ul class="house-ul">
+		</ul>
+</div>
+
+<script>
+
+var gmapsAPIKey = "AIzaSyAmW7fmoiV52ahfr4s2gmYKVPsv8hEHk0g";
+var distanceMatrixAPIKey = "AIzaSyACHyy4EKCvJRIlk3KM17nVdZCmltZUTGw";
+
+function prepGMaps() {
+
+var workplace = {};
+	workplace.name = 'UCF Coding Bootcamp';
+	workplace.lat = 28.589477;
+	workplace.lng = -81.199993;
+
+// 28.598107, -81.299277
+
+var homes = [];
+
+// Free limit per API request
+var homesLimit = 25;
+
+var workIcon = 'work.png';
+
+for(var i=0;i<homesLimit; i++)
+	{
+		var house = {};
+		house.name = 'wharrgarbl'+i;
+		house.price = Math.floor(Math.random()*3000)+800;
+		house.lat = workplace.lat + Math.random()*.4 - .2;
+				// Egypt, lolol!!!
+//		house.lng = workplace.lat + Math.random()*.4 - .2;  
+		house.lng = workplace.lng + Math.random()*.4 - .2;
+		house.marker = '';
+		house.icon = '';
+
+		// This is a very stupid distance metric...
+		house.dist = 
+			Math.pow
+				(Math.pow(house.lat-workplace.lat,2)
+				+ Math.pow(house.lng-workplace.lng,2)
+					,.5);
+
+		homes.push(house);
+	}
+
+//var origin1 = new google.maps.LatLng(55.930385, -3.118425);
+//var origin2 = 'Greenwich, England';
+//var destinationA = 'Stockholm, Sweden';
+//var destinationB = new google.maps.LatLng(50.087692, 14.421150);
+
+var distMatrixRaw = [];
+
+function getDistMatrix()
+	{
+		var dest = [];
+		homes.forEach(
+		function(home)
+			{
+				home.loc = new google.maps.LatLng(home.lat,home.lng);
+				console.log('Home location:',home.loc);
+				console.log('Home lat:',home.loc.lat());
+				console.log('Home lng:',home.loc.lng());
+				dest.push(home.loc);
+			}
+		);
+
+//		var dest = 
+		var service = new google.maps.DistanceMatrixService();
+		service.getDistanceMatrix(
+		  {
+		    origins: [workplace.loc],
+		    destinations: dest,
+		    travelMode: 'DRIVING',
+//		    transitOptions: TransitOptions,
+//		    drivingOptions: DrivingOptions,
+		    unitSystem: google.maps.UnitSystem.IMPERIAL,
+		    avoidHighways: false,
+		    avoidTolls: false,
+		  },
+		distMatrixCallback);
+	}
+
+function distMatrixCallback(response, status)
+	{
+		if(status !== 'OK') { alert('Crap, Google dist matrix API error:' + status);
+
+	}
+		  // See Parsing the Results for
+		  // the basics of a callback function.
+		else
+			{
+				distMatrixRaw = response;
+            var results = response.rows[0].elements;				
+
+			for(var j=0; j<homes.length; j++)
+//				                outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
+				{
+						// time in
+					homes[j].dist = results[j].duration.value;
+					console.log(results[j]);
+					console.log(results[j].duration);
+					console.log(results[j].duration.value);
+
+				}
+//                    ': ' + results[j].distance.text + ' in ' +
+//                    results[j].duration.text + '<br>';
+
+			}
+
+			// Use stupid metric if the matrix callback failed...
+			setDistZScores(homes);
+			deployHomes(homes);
+			haveHomes = true;
+
+	}
+
+
+
+
+// priceZ and distZ will hold z-scores for those values now.
+//  THE BELOW DEPENDS ON THE STATISTICS FOR THE ENTIRE ARRAY, AND THEREFORE CANNOT BE
+//  COMPUTED INSIDE OF THE FOR LOOP
+setPriceZScores(homes);
+setDistZScores(homes);
+
+
+// Depends on the z-scores...
+homeIconPicker(homes);
+
+var haveMap = false;
+var haveHomes = false;
+
+// Global is good...
+var map = '';
+var workMarker ='';
+var mapProp = '';
+
+
+
+$(document).click(function()
+		{
+
+			if(haveMap == false) 
+				{					
+					deployMap(workplace);
+					haveMap = true;
+				}
+			else if(haveHomes == false)
+				{
+					getDistMatrix();
+					/* Defer to callbacks of getDistMatrix...
+					deployHomes(homes);
+					haveHomes = true;
+					*/
+				}
+		}
+	);
+
+
+function deployMap(work)
+	{
+		workplace.loc = new google.maps.LatLng(workplace.lat,workplace.lng);
+		mapProp= 
+			{
+		    	center: workplace.loc, //new google.maps.LatLng(28.589477, -81.199993),
+		    	zoom:12
+			};		
+
+		console.log('Map out workplace:',workplace.loc);
+
+		map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+				
+
+		workMarker = new google.maps.Marker({
+			position: workplace.loc,
+			map: map,
+			icon: workIcon
+		});
+
+  // Zoom to 9 when clicking on marker
+/*
+  google.maps.event.addListener(marker,'click',function() {
+    map.setZoom(9);
+    map.setCenter(marker.getPosition());
+  });
+  */
+	}
+
+function deployHomes(homes)
+	{
+
+
+		homes.forEach(
+				function(home)
+				{
+					home.loc = new google.maps.LatLng(home.lat,home.lng);
+//					console.log('Home location:',home.loc);
+//					console.log('Home lat:',home.loc.lat());
+//					console.log('Home lng:',home.loc.lng());
+					home.marker = new google.maps.Marker({
+						position:home.loc,
+						map: map,
+						icon: home.icon
+					});
+
+					google.maps.event.addListener(home.marker,'click',
+						function() 
+							{
+								$('.house-ul').html('<li>Price: ' + home.price + '</li>' +
+														'<li>Distance: ' + home.dist + '</li>');
+							}
+						);
+//					home.marker
+
+					console.log('Home was logged with icon',home.icon,home);
+				}
+
+
+			)
+
+
+
+	}
+
+}
+
+
+// Utility functions
+
+function average(arr)
+	{
+		var sum = 0;
+		for(var i=0;i<arr.length;i++)
+			{	
+				sum += arr[i];
+			}
+		if(arr.length>0)
+		{
+//			console.log ('Average of',arr,'=',sum/arr.length);
+			return (sum/arr.length);
+		}
+		else
+			{	console.log('Average of empty sum not defined...');
+				return 0; }
+	}
+
+
+function variance(arr)
+	{
+		var ssd = 0;
+		var mean = average(arr);
+		for(var i=0; i<arr.length; i++)
+			{	
+				ssd += Math.pow(arr[i]-mean,2);
+			}
+		if(arr.length>1)
+			{
+				return ssd/(arr.length-1);	
+			}
+		else
+			{	
+				console.log('Less than two items, std. dev is useless...');
+				return 0;
+			}
+	}
+
+function stdDev(arr)
+	{
+//		console.log('Standard deviation:',Math.pow(variance(arr),.5));
+		return Math.pow(variance(arr),.5);
+	}
+
+// Takes prices, gives houses a "distance z-score" property
+function setPriceZScores(arr)
+	{
+		var priceArr = [];
+		for (var i=0;i<arr.length;i++)
+			{
+				priceArr.push(arr[i].price);
+			}
+
+		var mean = average(priceArr);
+		var sd = stdDev(priceArr);
+		for (var i=0;i<arr.length;i++)
+		{
+			arr[i].homeIcon ='home-blue.png';
+			if(sd>0)
+			{
+				arr[i].priceZ = (arr[i].price-mean)/sd;
+			}
+		}
+	}
+
+// Takes houses, gives houses a "distance z-score" property
+function setDistZScores(arr)
+	{
+		var distArr = [];
+		for (var i=0;i<arr.length;i++)
+			{
+				distArr.push(arr[i].dist);
+			}
+
+		var mean = average(distArr);
+		var sd = stdDev(distArr);
+		for (var i=0;i<arr.length;i++)
+		{
+			if(sd>0)
+			{
+				arr[i].distZ = (arr[i].dist-mean)/sd;
+			}
+		}
+	}
+
+function homeIconPicker(arr)
+	{
+		for(i=0;i<arr.length;i++)
+		{
+			if(arr[i].priceZ+arr[i].distZ > 2)
+				{	
+					arr[i].icon = 'home-red.png';
+				}
+
+			else if(arr[i].priceZ+arr[i].distZ >1)
+				{	
+					arr[i].icon = 'home-yellow.png';
+				}
+			else if(arr[i].priceZ+arr[i].distZ < -1)
+				{	
+					arr[i].icon = 'home-green.png';
+				}
+			else
+				{	// default, already set, but just in case...
+					arr[i].icon = 'home-blue.png';
+				}
+		}
+	}
+
+//myMap();
+
+//var marker = new google.maps.Marker({position: myMap.center});
+//marker.setMap(map);
+
+
+</script>
+
+
+
+</body>
+</html>
